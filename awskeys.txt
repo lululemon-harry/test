@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+usage(){
+    echo "./test_aws_creds.sh AKIAIOSFODNN7EXAMPLE wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+}
+
+export AWS_ACCESS_KEY_ID=$1
+export AWS_SECRET_ACCESS_KEY=$2
+export AWS_DEFAULT_REGION=us-east-2
+
+echo "Access Key ID: $AWS_ACCESS_KEY_ID"
+echo "Secret Access Key: $AWS_SECRET_ACCESS_KEY"
+echo "Region: $AWS_DEFAULT_REGION"
+
+resp=$(aws iam create-user --user-name TestMePlease)
+if [[ $? != 0 ]];then
+    echo 'If the token worked, you should receive an alert shortly (0-20 mins)'
+else
+    echo 'Seems the AWS Key allowed you to create an actual user. What?!'
+fi
